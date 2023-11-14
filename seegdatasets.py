@@ -16,7 +16,7 @@ class SEEGDataset(Dataset):
         with NWBHDF5IO(file_path, 'r') as io:
             nwbfile = io.read()
             # 提取SEEG数据
-            seeg_data = nwbfile.acquisition['ElectricalSeries'].data[:]  # 根据实际存储位置进行调整
+            seeg_data = nwbfile.acquisition['ElectricalSeries'].data[:]  
             
             # 首先将数据转换为PyTorch Tensor
             seeg_tensor = torch.from_numpy(seeg_data)
@@ -27,7 +27,7 @@ class SEEGDataset(Dataset):
 
             # 提取电极位置信息
             electrodes = nwbfile.electrodes.to_dataframe()
-            positions = electrodes[['x', 'y', 'z']].values  # 假设x, y, z列存在
+            positions = electrodes[['x', 'y', 'z']].values  
 
             # 将位置信息转换为Tensor
             position_tensor = torch.from_numpy(positions)
